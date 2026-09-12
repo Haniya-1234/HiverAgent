@@ -15,7 +15,7 @@ def main():
     sample_size = min(20, len(df))
     sample_df = df.sample(n=sample_size, random_state=42).copy()
     
-    # Add human columns
+    # Add human columns (blank)
     sample_df['human_relevance_1_5'] = ""
     sample_df['human_helpfulness_1_5'] = ""
     sample_df['human_grounding_1_5'] = ""
@@ -23,13 +23,9 @@ def main():
     sample_df['human_overall_1_5'] = ""
     sample_df['human_notes'] = ""
     
-    # Define columns to keep
-    # check if 'retrieved_evidence' or 'retrieved_historical_response' is in df
-    evidence_col = 'retrieved_evidence' if 'retrieved_evidence' in df.columns else 'retrieved_historical_response'
-    
     cols = [
-        "example_id", "customer_message", "predicted_intent", 
-        evidence_col, "agent_response", 
+        "example_id", "customer_text", "true_intent", "predicted_intent", 
+        "retrieved_evidence", "agent_response", "escalation_decision",
         "human_relevance_1_5", "human_helpfulness_1_5", "human_grounding_1_5", 
         "human_appropriateness_1_5", "human_overall_1_5",
         "human_notes"
@@ -50,3 +46,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

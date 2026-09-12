@@ -120,7 +120,16 @@ To run the interactive local UI demo:
 streamlit run app.py
 ```
 
-## 20. Note on LLM Inference and Diagnostic Metrics
-LLM inference (Cerebras) was not included in the final measured results. The external Cerebras account returned an HTTP 402 error due to unavailable quota. Therefore, the agent's end-to-end response quality was NOT assigned a valid LLM-judge score, and the agent currently utilizes a deterministic fallback mechanism based directly on the historical support responses. We do not claim any LLM response quality metrics or human/LLM agreement.
+## 20. LLM Judge Validation and Agreement
+Groq successfully evaluated 47/50 cases; 3 failed due to API rate limits. Failed cases were excluded from score averages rather than treated as zero. The 20 ratings were prepared with AI assistance using the same 1–5 rubric. Exact agreement and Mean Absolute Difference (MAD) were calculated on the overlapping successfully scored cases.
 
-Additionally, a 96.5% agent intent accuracy and 97.89% macro F1 diagnostic result was observed during development, but it is explicitly NOT used as the headline metric because it was evaluated on the full 200-example golden set rather than a held-out test set. The defensible primary classification result is the 66.0% accuracy on the held-out test split.
+Agreement was modest, especially for grounding:
+- Relevance: 39.13% Exact Agreement, MAD 1.91
+- Helpfulness: 52.17% Exact Agreement, MAD 0.83
+- Grounding: 21.74% Exact Agreement, MAD 2.09
+- Appropriateness: 34.78% Exact Agreement, MAD 1.00
+- Overall: 34.78% Exact Agreement, MAD 1.26
+
+Therefore, the LLM judge should NOT be treated as a validated replacement for human review. The low grounding agreement is itself a limitation and suggests the rubric/judge needs further calibration. We do not claim strong judge-human agreement.
+
+Additionally, a 96.5% agent intent accuracy diagnostic result was observed during development, but it is explicitly NOT used as the headline metric because it was evaluated on the full 200-example golden set rather than a held-out test set. The 66.0% accuracy / 60.26% Macro F1 remains the primary classifier headline. LLM judge scores are secondary quality diagnostics.

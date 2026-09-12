@@ -1,0 +1,13 @@
+{
+    "sample_size": 50,
+    "model": "openai/gpt-oss-20b",
+    "successful_evaluations": 47,
+    "failed_evaluations": 3,
+    "average_scores": {
+        "Relevance": 3.0638297872340425,
+        "Helpfulness": 3.021276595744681,
+        "Grounding": 2.5106382978723403,
+        "Appropriateness": 4.0,
+        "Overall": 3.0638297872340425
+    }
+}

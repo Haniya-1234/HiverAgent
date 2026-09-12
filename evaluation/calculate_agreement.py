@@ -46,7 +46,7 @@ def main():
             mask = ~np.isnan(llm_scores) & ~np.isnan(human_scores)
             
             if not mask.any():
-                results[metric] = {"exact_agreement": None, "mean_absolute_difference": None}
+                results[metric] = {"exact_agreement": None, "mean_absolute_difference": None, "examples_compared": 0}
                 continue
                 
             llm_clean = llm_scores[mask]
@@ -77,3 +77,4 @@ def main():
         
 if __name__ == '__main__':
     main()
+

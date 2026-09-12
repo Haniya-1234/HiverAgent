@@ -27,20 +27,27 @@ class SupportAgent:
         self._train_classifier(golden_set_path)
         
         self.llm_provider = None
-        self.model = None
+        self.client = None
         
-        # Check for GEMINI
+        # Check for GEMINI, OPENAI, GROQ
         gemini_key = os.environ.get('GEMINI_API_KEY')
         openai_key = os.environ.get('OPENAI_API_KEY')
+        groq_key = os.environ.get('GROQ_API_KEY')
         
-        if gemini_key:
+        if groq_key:
+            try:
+                from groq import Groq
+                self.client = Groq(api_key=groq_key)
+                self.llm_provider = 'groq'
+            except ImportError:
+                pass
+        elif gemini_key:
             try:
                 from google import genai
                 self.client = genai.Client(api_key=gemini_key)
                 self.llm_provider = 'gemini'
             except ImportError:
                 pass
-                
         elif openai_key:
             try:
                 from openai import OpenAI
@@ -63,7 +70,7 @@ class SupportAgent:
         self.classifier.fit(X, y)
         self.classes = self.classifier.classes_
         
-    def generate_response(self, customer_message, retrieved_cases, should_escalate):
+    def generate_response(self, customer_message, retrieved_cases, should_escalate, raise_on_llm_failure=False):
         if should_escalate:
             if not retrieved_cases:
                 return "I apologize, but I couldn't find a similar issue to help you. Let me connect you with a human agent."
@@ -94,7 +101,15 @@ New Customer Message:
 Draft Response:"""
 
         try:
-            if self.llm_provider == 'gemini':
+            if self.llm_provider == 'groq':
+                response = self.client.chat.completions.create(
+                    model='openai/gpt-oss-20b',
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=1000,
+                    temperature=0.0
+                )
+                return response.choices[0].message.content.strip()
+            elif self.llm_provider == 'gemini':
                 response = self.client.models.generate_content(
                     model='gemini-3.6-flash',
                     contents=prompt
@@ -107,11 +122,13 @@ Draft Response:"""
                 )
                 return response.choices[0].message.content.strip()
         except Exception as e:
+            if raise_on_llm_failure:
+                raise RuntimeError(f"Agent LLM Generation failed: {e}")
             # Fallback if API fails
             print(f"LLM API failed: {e}. Falling back to deterministic.")
             return clean_fallback_response(retrieved_cases[0]['support_response']) if retrieved_cases else "I'm having trouble right now, let me connect you to a human."
 
-    def process_message(self, customer_message, conversation_id=None):
+    def process_message(self, customer_message, conversation_id=None, raise_on_llm_failure=False):
         # 1. Intent Classification
         pred_intent = self.classifier.predict([customer_message])[0]
         probs = self.classifier.predict_proba([customer_message])[0]
@@ -149,7 +166,7 @@ Draft Response:"""
             escalation_reason = f"Low intent confidence ({intent_conf:.2f}) and weak retrieval evidence ({top_retrieval_score:.2f})."
             
         # 4. Generate Response
-        draft_response = self.generate_response(customer_message, retrieved_cases, should_escalate)
+        draft_response = self.generate_response(customer_message, retrieved_cases, should_escalate, raise_on_llm_failure)
         
         return {
             "customer_message": customer_message,
@@ -158,5 +175,6 @@ Draft Response:"""
             "retrieved_cases": retrieved_cases,
             "draft_response": draft_response,
             "should_escalate": should_escalate,
-            "escalation_reason": escalation_reason
+            "escalation_reason": escalation_reason,
+            "provider_used": self.llm_provider
         }

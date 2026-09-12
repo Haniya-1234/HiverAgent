@@ -1,0 +1,27 @@
+{
+    "relevance": {
+        "exact_agreement": 0.391304347826087,
+        "mean_absolute_difference": 1.9130434782608696,
+        "examples_compared": 23
+    },
+    "helpfulness": {
+        "exact_agreement": 0.5217391304347826,
+        "mean_absolute_difference": 0.8260869565217391,
+        "examples_compared": 23
+    },
+    "grounding": {
+        "exact_agreement": 0.21739130434782608,
+        "mean_absolute_difference": 2.0869565217391304,
+        "examples_compared": 23
+    },
+    "appropriateness": {
+        "exact_agreement": 0.34782608695652173,
+        "mean_absolute_difference": 1.0,
+        "examples_compared": 23
+    },
+    "overall": {
+        "exact_agreement": 0.34782608695652173,
+        "mean_absolute_difference": 1.2608695652173914,
+        "examples_compared": 23
+    }
+}

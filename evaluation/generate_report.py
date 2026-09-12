@@ -52,8 +52,11 @@ def main():
             
     if 'llm_judge_scores' in report:
         print("\nLLM-as-Judge Average Scores (1-5):")
-        for k, v in report['llm_judge_scores'].items():
+        avg_scores = report['llm_judge_scores'].get('average_scores', {})
+        for k, v in avg_scores.items():
             print(f"  {k}: {v:.2f}")
+        print(f"  Successful: {report['llm_judge_scores'].get('successful_evaluations', 0)}")
+        print(f"  Failed: {report['llm_judge_scores'].get('failed_evaluations', 0)}")
     else:
         print("\nLLM-as-Judge: Not run (no API key configured or script not executed).")
         
@@ -70,3 +73,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

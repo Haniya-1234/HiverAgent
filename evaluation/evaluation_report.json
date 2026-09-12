@@ -1,0 +1,214 @@
+{
+    "baselines": {
+        "baseline_1_majority": {
+            "accuracy": 0.2,
+            "macro_f1": 0.0303030303030303,
+            "classification_report": {
+                "APPLE_ID_ICLOUD": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 6.0
+                },
+                "APPLE_MUSIC_LIBRARY": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 3.0
+                },
+                "APP_CRASHING": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 3.0
+                },
+                "BATTERY_DRAIN_HEALTH": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 5.0
+                },
+                "DEVICE_ACTIVATION": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 3.0
+                },
+                "DEVICE_FREEZING_UNRESPONSIVE": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 8.0
+                },
+                "HARDWARE_PHYSICAL_DAMAGE": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 3.0
+                },
+                "IOS_AUTOCORRECT_BUG": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 5.0
+                },
+                "IOS_UPDATE_INSTALLATION": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 1.0
+                },
+                "OTHER_UNCLEAR": {
+                    "precision": 0.2,
+                    "recall": 1.0,
+                    "f1-score": 0.3333333333333333,
+                    "support": 10.0
+                },
+                "WIFI_BLUETOOTH": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 3.0
+                },
+                "accuracy": 0.2,
+                "macro avg": {
+                    "precision": 0.018181818181818184,
+                    "recall": 0.09090909090909091,
+                    "f1-score": 0.0303030303030303,
+                    "support": 50.0
+                },
+                "weighted avg": {
+                    "precision": 0.04,
+                    "recall": 0.2,
+                    "f1-score": 0.06666666666666667,
+                    "support": 50.0
+                }
+            }
+        },
+        "baseline_2_tfidf_logreg": {
+            "accuracy": 0.66,
+            "macro_f1": 0.6025530025530025,
+            "classification_report": {
+                "APPLE_ID_ICLOUD": {
+                    "precision": 0.5714285714285714,
+                    "recall": 0.6666666666666666,
+                    "f1-score": 0.6153846153846154,
+                    "support": 6.0
+                },
+                "APPLE_MUSIC_LIBRARY": {
+                    "precision": 0.75,
+                    "recall": 1.0,
+                    "f1-score": 0.8571428571428571,
+                    "support": 3.0
+                },
+                "APP_CRASHING": {
+                    "precision": 0.3333333333333333,
+                    "recall": 0.3333333333333333,
+                    "f1-score": 0.3333333333333333,
+                    "support": 3.0
+                },
+                "BATTERY_DRAIN_HEALTH": {
+                    "precision": 1.0,
+                    "recall": 1.0,
+                    "f1-score": 1.0,
+                    "support": 5.0
+                },
+                "DEVICE_ACTIVATION": {
+                    "precision": 0.75,
+                    "recall": 1.0,
+                    "f1-score": 0.8571428571428571,
+                    "support": 3.0
+                },
+                "DEVICE_FREEZING_UNRESPONSIVE": {
+                    "precision": 0.5,
+                    "recall": 0.75,
+                    "f1-score": 0.6,
+                    "support": 8.0
+                },
+                "HARDWARE_PHYSICAL_DAMAGE": {
+                    "precision": 0.3333333333333333,
+                    "recall": 0.3333333333333333,
+                    "f1-score": 0.3333333333333333,
+                    "support": 3.0
+                },
+                "IOS_AUTOCORRECT_BUG": {
+                    "precision": 1.0,
+                    "recall": 0.8,
+                    "f1-score": 0.8888888888888888,
+                    "support": 5.0
+                },
+                "IOS_UPDATE_INSTALLATION": {
+                    "precision": 0.0,
+                    "recall": 0.0,
+                    "f1-score": 0.0,
+                    "support": 1.0
+                },
+                "OTHER_UNCLEAR": {
+                    "precision": 1.0,
+                    "recall": 0.4,
+                    "f1-score": 0.5714285714285714,
+                    "support": 10.0
+                },
+                "WIFI_BLUETOOTH": {
+                    "precision": 0.5,
+                    "recall": 0.6666666666666666,
+                    "f1-score": 0.5714285714285714,
+                    "support": 3.0
+                },
+                "accuracy": 0.66,
+                "macro avg": {
+                    "precision": 0.6125541125541125,
+                    "recall": 0.6318181818181818,
+                    "f1-score": 0.6025530025530025,
+                    "support": 50.0
+                },
+                "weighted avg": {
+                    "precision": 0.7085714285714286,
+                    "recall": 0.66,
+                    "f1-score": 0.6501636141636142,
+                    "support": 50.0
+                }
+            }
+        }
+    },
+    "llm_judge_scores": {
+        "sample_size": 50,
+        "model": "openai/gpt-oss-20b",
+        "successful_evaluations": 47,
+        "failed_evaluations": 3,
+        "average_scores": {
+            "Relevance": 3.0638297872340425,
+            "Helpfulness": 3.021276595744681,
+            "Grounding": 2.5106382978723403,
+            "Appropriateness": 4.0,
+            "Overall": 3.0638297872340425
+        }
+    },
+    "human_agreement": {
+        "relevance": {
+            "exact_agreement": 0.391304347826087,
+            "mean_absolute_difference": 1.9130434782608696,
+            "examples_compared": 23
+        },
+        "helpfulness": {
+            "exact_agreement": 0.5217391304347826,
+            "mean_absolute_difference": 0.8260869565217391,
+            "examples_compared": 23
+        },
+        "grounding": {
+            "exact_agreement": 0.21739130434782608,
+            "mean_absolute_difference": 2.0869565217391304,
+            "examples_compared": 23
+        },
+        "appropriateness": {
+            "exact_agreement": 0.34782608695652173,
+            "mean_absolute_difference": 1.0,
+            "examples_compared": 23
+        },
+        "overall": {
+            "exact_agreement": 0.34782608695652173,
+            "mean_absolute_difference": 1.2608695652173914,
+            "examples_compared": 23
+        }
+    }
+}
