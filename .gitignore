@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env
+.DS_Store
+
+# Data files (keep golden_set.csv and retrieval_dataset.csv, ignore large raw files)
+data/twcs.csv
+data/sample.csv
+data/processed/apple_support_candidates.csv
+
+# Temporary json dumps
+activate_tweets.json
+apple_id_tweets.json
+update_tweets.json
