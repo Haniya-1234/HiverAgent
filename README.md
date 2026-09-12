@@ -65,13 +65,13 @@ Based on actual observations, the top 5 failure modes are:
 2. **Lexical retrieval mismatch**: TF-IDF struggles with synonymous but lexically distinct phrases.
 3. **Noisy social-media language**: Typos, slang, and sarcasm confuse both the classifier and the retriever.
 4. **Low classifier confidence causing over-escalation**: The conservative escalation thresholds lead to a high human hand-off rate.
-5. **Limited/failed external LLM inference**: The lack of LLM quota forced the agent to rely on a rigid deterministic fallback mechanism.
+5. **Rate-limited external LLM inference**: The final implementation uses Groq with openai/gpt-oss-20b, which can occasionally hit rate limits, forcing the agent to rely on a deterministic fallback mechanism.
 
 ## 14. "What is misleading about my headline number?"
 Our 66% accuracy for the TF-IDF + Logistic Regression baseline does not mean 66% of customers can be safely handled automatically. Given our strict escalation policy for low-confidence and sensitive intents (`OTHER_UNCLEAR`, `APPLE_ID_ICLOUD`), a large portion of accurately classified queries will still be routed to a human. The true automation rate is lower than the classification accuracy.
 
 ## 15. Limitations
-- **LLM Inference Failed**: We attempted to integrate Cerebras for LLM response generation, but the API returned HTTP 402 (payment required/no quota). Consequently, the agent relies entirely on deterministic fallback.
+- **LLM Inference Limits**: The final implementation uses Groq with openai/gpt-oss-20b for LLM response generation. When API rate limits are exceeded, the agent relies on deterministic fallback.
 - **Classical ML constraints**: The TF-IDF + Logistic Regression model is fast and explainable but lacks the deep semantic understanding of modern transformer-based embeddings.
 - **Small Evaluation Set**: The 200-sample golden set might not fully capture long-tail distribution variations.
 

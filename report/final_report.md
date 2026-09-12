@@ -56,7 +56,7 @@ The agent escalates to a human agent when:
 2. **Lexical retrieval mismatch**: TF-IDF retrieval fails to match synonymous phrases that do not share exact words.
 3. **Noisy social-media language**: Typos, slang, abbreviations, and sarcasm confuse both the classifier and retriever.
 4. **Low classifier confidence causing over-escalation**: Our conservative escalation policy triggers too frequently, resulting in a lower automation rate than desired.
-5. **Limited/failed external LLM inference**: Attempts to use Cerebras API failed due to HTTP 402 quota restrictions, forcing the pipeline to rely entirely on a rigid deterministic fallback mechanism.
+5. **LLM Generation Rate Limits**: The final implementation uses Groq with openai/gpt-oss-20b for generation. In cases where API rate limits are reached, the pipeline relies on a deterministic fallback mechanism.
 
 ## 10. What Is Misleading About My Headline Number?
 Claiming a "66% classification accuracy" gives the false impression that 66% of customer queries can be handled entirely automatically. In reality, our strict escalation policy routes many correctly classified queries (like `APPLE_ID_ICLOUD` and `OTHER_UNCLEAR`) directly to human agents for safety. The true percentage of safely automated tickets is substantially lower than 66%.
@@ -70,6 +70,6 @@ Claiming a "66% classification accuracy" gives the false impression that 66% of 
 
 ## 12. Next-Week Plan
 1. **Integrate Open-Source Local Embeddings**: Replace TF-IDF with a local model like `sentence-transformers` for better semantic retrieval and intent classification without API costs.
-2. **Implement Local LLM Generation**: Utilize a small local LLM (e.g., Llama 3 8B via Ollama) to draft context-aware responses without relying on paid external APIs like Cerebras.
+2. **Implement Local LLM Generation**: Utilize a small local LLM (e.g., Llama 3 8B via Ollama) to draft context-aware responses without relying on external APIs.
 3. **Expand Golden Set**: Annotate an additional 300 examples specifically targeting sparse classes like `IOS_UPDATE_INSTALLATION`.
 4. **Tune Escalation Thresholds**: Run a grid search on confidence and retrieval thresholds to balance the automation rate against safety and precision.

@@ -62,7 +62,7 @@ This document records the key architectural and design decisions made throughout
 **Why we made it**: In customer support, an incorrect automated action is often worse than no action. We prioritize safety and customer experience by deferring to humans when unsure.
 **Trade-off / consequence**: A high escalation rate limits the overall automation throughput, increasing the load on human agents compared to a more aggressive automation strategy.
 
-## 13. Not Claiming LLM Metrics When Cerebras Inference was Unavailable
-**Decision**: Honestly document the HTTP 402 API failure and rely on a deterministic fallback rather than fabricating LLM evaluation results.
+## 13. Using Groq for LLM Inference
+**Decision**: The final implementation uses Groq with openai/gpt-oss-20b for LLM generation. When API rate limits are reached, we rely on a deterministic fallback rather than fabricating LLM evaluation results.
 **Why we made it**: Integrity and transparency are paramount. Hallucinating metrics violates the core requirements of a valid scientific evaluation.
-**Trade-off / consequence**: The final agent lacks the generative conversational flexibility originally intended and operates functionally as a retrieval-augmented search engine rather than a conversational AI.
+**Trade-off / consequence**: The agent may occasionally fall back to functioning as a retrieval-augmented search engine when LLM rate limits are exceeded.
